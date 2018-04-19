@@ -160,7 +160,7 @@ public class ListaEncad extends javax.swing.JFrame {
 
     private void inserir_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserir_BtActionPerformed
         l = getBufferStrategy().getDrawGraphics();
-        if(validarCampos()){
+        if(validarCampos() && validarPosicao()){
             if(lista.vazia()){
                 l.drawRect(x,200,30 ,20);
                 l.drawString(valor_txt.getText(),x+10, 210);
@@ -194,18 +194,11 @@ public class ListaEncad extends javax.swing.JFrame {
                 p = Integer.parseInt(posicao_txt.getText());
                 c = Integer.parseInt(valor_txt.getText());
                 lista.insere(p, c);
-
-                
-                
-                
-                
                 e++;
                 x = 20;
-                l.drawRect(x,200,30 ,20);
-                
+                l.drawRect(x,200,30 ,20);                
 //                l.drawString(valor_txt.getText(),x+10, 210);
-//                l.drawLine(x+20, 200, x+20, 220);
-                
+//                l.drawLine(x+20, 200, x+20, 220);                
                 x = x+45;
                 l.clearRect(x, 190,500, 20);
                 for (int k = 2; k<=e; k++){
