@@ -2,8 +2,8 @@
 package InterfaceGrafica;
 
 import Implementacoes.FilaEnc;
+import Implementacoes.ListaSeq;
 import java.awt.Graphics;
-import static java.awt.image.ImageObserver.HEIGHT;
 import javax.swing.JOptionPane;
 
 /*
@@ -11,21 +11,24 @@ import javax.swing.JOptionPane;
  */
 
 public class Fila extends javax.swing.JFrame {
-    
-    public Fila(){
+
+    public Fila() {
         initComponents();
         createBufferStrategy(1);
         setLocationRelativeTo(null);
     }
-
-    FilaEnc fila = new FilaEnc();
-    int y = 70;
-    String v = new String();
-    int c;
-    int contador = 0;
-    Graphics f; 
     
-    public boolean validarCampos(){
+    Graphics l;    
+    FilaEnc fila = new FilaEnc();
+    //lista pra desenhar
+    ListaSeq lista = new ListaSeq();
+    //eixo em destaque X
+    int x = 20;
+    String v = new String();    
+    int valor, posicao;
+    int elementos = 0;
+    
+    public boolean validarValor(){
         if(valor_txt.getText().isEmpty()){
             //Verifica se tem campo vazio
             JOptionPane.showMessageDialog(this, "Campo vazio! Por favor preencha!", "Campo vazio", JOptionPane.ERROR_MESSAGE);
@@ -41,8 +44,7 @@ public class Fila extends javax.swing.JFrame {
             }
         }
         return true;
-    }
-    
+    }    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,35 +55,36 @@ public class Fila extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        inserir_bt = new javax.swing.JButton();
-        remover_bt = new javax.swing.JButton();
+        inserir_Bt = new javax.swing.JButton();
+        remover_Bt = new javax.swing.JButton();
         inicio_bt = new javax.swing.JButton();
         valor_txt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         elementos_txt = new javax.swing.JLabel();
-        inicio_ti = new javax.swing.JLabel();
-        elementos_ti = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         inicio_txt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Fila (Encadeada)");
+        setTitle("Fila Encadeada");
 
-        inserir_bt.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        inserir_bt.setText("Inserir");
-        inserir_bt.addActionListener(new java.awt.event.ActionListener() {
+        inserir_Bt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        inserir_Bt.setText("Inserir");
+        inserir_Bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inserir_btActionPerformed(evt);
+                inserir_BtActionPerformed(evt);
             }
         });
 
-        remover_bt.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        remover_bt.setText("Remover");
-        remover_bt.addActionListener(new java.awt.event.ActionListener() {
+        remover_Bt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        remover_Bt.setText("Remover");
+        remover_Bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remover_btActionPerformed(evt);
+                remover_BtActionPerformed(evt);
             }
         });
 
-        inicio_bt.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        inicio_bt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         inicio_bt.setText("Inicio");
         inicio_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,122 +92,138 @@ public class Fila extends javax.swing.JFrame {
             }
         });
 
-        valor_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         valor_txt.setOpaque(false);
-        valor_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valor_txtActionPerformed(evt);
-            }
-        });
 
-        elementos_txt.setText(" ");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Valor:");
 
-        inicio_ti.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        inicio_ti.setText("Inicio:");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Elementos:");
 
-        elementos_ti.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        elementos_ti.setText("Elementos:");
-
-        inicio_txt.setText(" ");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Inicio:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(537, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(inicio_ti)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inicio_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(remover_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inserir_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inicio_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(609, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(elementos_ti)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(elementos_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(valor_txt, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elementos_txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(inicio_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inserir_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(remover_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(valor_txt)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(38, 38, 38)
+                        .addComponent(inicio_txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inicio_ti)
-                    .addComponent(inicio_txt))
+                .addGap(109, 109, 109)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(inicio_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(elementos_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(elementos_txt)
-                    .addComponent(elementos_ti))
+                .addComponent(inserir_Bt)
                 .addGap(18, 18, 18)
-                .addComponent(inserir_bt)
-                .addGap(18, 18, 18)
-                .addComponent(remover_bt)
+                .addComponent(remover_Bt)
                 .addGap(18, 18, 18)
                 .addComponent(inicio_bt)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(valor_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void inserir_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserir_btActionPerformed
-       if(validarCampos()){
-            f = getBufferStrategy().getDrawGraphics();
-            if(fila.vazia()){
-                v = valor_txt.getText();
-                c = Integer.parseInt(v);
-                fila.insere(c);
-                f.drawRect(150, y, 50, 35);
-                f.drawLine(150,y+7 ,200 ,y+7);
-                f.drawString(v, 160,y+9);
-                f.dispose();            
-                getBufferStrategy().show();
-                y = y+50;
-                valor_txt.setText(null);
-                inicio_txt.setText(null);
-                contador++;
-                elementos_txt.setText(Integer.toString(contador));
-            }
-            else{
-                v = valor_txt.getText();
-                c = Integer.parseInt(v);
-                fila.insere(c);
-                f.drawRect(150, y, 50, 35);
-                f.drawLine(150, y+7, 200, y+7);
-                f.drawLine(175, y-30, 175, y);
-                f.drawString(v, 160, y+9);
-                f.dispose();
-                getBufferStrategy().show();
-                y = y+50;
-                valor_txt.setText(null);
-                inicio_txt.setText(null);
-                contador++;
-                elementos_txt.setText(Integer.toString(contador));
-            }
+    private void inserir_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserir_BtActionPerformed
+        l = getBufferStrategy().getDrawGraphics();
+        if(validarValor()){            
+            //se nao for vazia desenha ligacao
+            if(fila.vazia()==false){
+                //linha horizontal
+                l.drawLine(x-15, 210, x, 210); 
+            } 
+            //pega os valores digitados e coloca na lista
+            valor = Integer.parseInt(valor_txt.getText());            
+            fila.insere(valor); 
+            //informa o numero de elementos na lista
+            elementos++;
+            elementos_txt.setText(Integer.toString(elementos));
+            //lista pra desenhar
+            lista.insere(elementos, valor); 
+            //quadrado
+            l.drawRect(x,200,30 ,20);
+            //string com os valores
+            l.drawString(valor_txt.getText(),x+10, 210);            
+            x = x+45;
+            l.dispose();
+            getBufferStrategy().show(); 
+            //limpa os valores
+            valor_txt.setText(null);
+            inicio_txt.setText(null);
         }
-        valor_txt.setText("");
-    }//GEN-LAST:event_inserir_btActionPerformed
+    }//GEN-LAST:event_inserir_BtActionPerformed
 
-    private void remover_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_btActionPerformed
-       f = getBufferStrategy().getDrawGraphics();
+    private void remover_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_BtActionPerformed
+        l = getBufferStrategy().getDrawGraphics();
         if(fila.vazia()){
-            JOptionPane.showMessageDialog(rootPane, "Fila vazia", "ERRO", HEIGHT);
+            JOptionPane.showMessageDialog(rootPane, "Fila", "ERRO", HEIGHT);
         }
-        else {
-            fila.remove();
-            f.clearRect(150,(y-(contador*50)) , 55, 50);
-            contador--;
-            elementos_txt.setText(Integer.toString(contador));
+        //limpa
+        l.clearRect(0, 190,x+100, 500);
+        fila.remove();
+        lista.remove(1);
+        x = 20;
+        //reescreve 
+        for (int k = 1; k<elementos; k++){
+            if(k==1){
+                //quadrado
+                l.drawRect(x,200,30 ,20);
+                //string com os valores
+                v = Integer.toString(lista.elemento(k));
+                l.drawString(v,x+10, 210);
+                x = x+45;
+            }
+            //se nao for 1 desenha a ligacao
+            else{
+                //quadrado
+                l.drawRect(x, 200, 30, 20);
+                //string com os valores
+                v = Integer.toString(lista.elemento(k));                
+                l.drawString(v,x+10, 210);
+                //linha horizontal 
+                l.drawLine(x-15, 210, x, 210);
+                x = x+45;
+            }
         }
+        l.dispose();
+        getBufferStrategy().show();
+        //informa o numero de elementos na lista
+        elementos--; 
+        elementos_txt.setText(Integer.toString(elementos));   
+        //limpa os valores
+        valor_txt.setText(null);
         inicio_txt.setText(null);
-        valor_txt.setText("");
-    }//GEN-LAST:event_remover_btActionPerformed
+    }//GEN-LAST:event_remover_BtActionPerformed
     private void inicio_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicio_btActionPerformed
         int v = fila.inicio(); 
         if(v>=0){
@@ -216,10 +235,6 @@ public class Fila extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Fila vazia", "ERRO", HEIGHT);
         }
     }//GEN-LAST:event_inicio_btActionPerformed
-
-    private void valor_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valor_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valor_txtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,13 +273,14 @@ public class Fila extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel elementos_ti;
     private javax.swing.JLabel elementos_txt;
     private javax.swing.JButton inicio_bt;
-    private javax.swing.JLabel inicio_ti;
     private javax.swing.JLabel inicio_txt;
-    private javax.swing.JButton inserir_bt;
-    private javax.swing.JButton remover_bt;
+    private javax.swing.JButton inserir_Bt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton remover_Bt;
     private javax.swing.JTextField valor_txt;
     // End of variables declaration//GEN-END:variables
 }

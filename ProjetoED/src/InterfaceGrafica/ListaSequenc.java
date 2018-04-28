@@ -17,15 +17,15 @@ public class ListaSequenc extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    Graphics l;
-    int x = 20;
+    Graphics l;    
     ListaSeq lista = new ListaSeq();
-    String v = new String();
-    int con = 0;
-    int c, p;
-    int e = 0;
+    //eixo em destaque X
+    int x = 20;
+    String v = new String();    
+    int valor, posicao;
+    int elementos = 0;
     
-    public boolean validarCampos(){
+    public boolean validarValor(){
         if(valor_txt.getText().isEmpty()){
             //Verifica se tem campo vazio
             JOptionPane.showMessageDialog(this, "Campo vazio! Por favor preencha!", "Campo vazio", JOptionPane.ERROR_MESSAGE);
@@ -75,8 +75,10 @@ public class ListaSequenc extends javax.swing.JFrame {
         pesquisar_Bt = new javax.swing.JButton();
         valor_txt = new javax.swing.JTextField();
         posicao_txt = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        valor_lb = new javax.swing.JLabel();
+        posicao_lb = new javax.swing.JLabel();
+        elementos_lb = new javax.swing.JLabel();
+        elementos_txt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista Sequêncial");
@@ -109,11 +111,14 @@ public class ListaSequenc extends javax.swing.JFrame {
 
         posicao_txt.setOpaque(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Valor:");
+        valor_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        valor_lb.setText("Valor:");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Posição:");
+        posicao_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        posicao_lb.setText("Posição:");
+
+        elementos_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        elementos_lb.setText("Elementos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,35 +126,42 @@ public class ListaSequenc extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(603, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pesquisar_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inserir_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(remover_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(valor_txt)
-                        .addComponent(posicao_txt)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(elementos_lb)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elementos_txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(posicao_lb)
+                    .addComponent(valor_lb)
+                    .addComponent(pesquisar_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inserir_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(remover_Bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(valor_txt)
+                    .addComponent(posicao_txt))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
+                .addGap(136, 136, 136)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(elementos_lb)
+                    .addComponent(elementos_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(inserir_Bt)
                 .addGap(18, 18, 18)
                 .addComponent(remover_Bt)
                 .addGap(18, 18, 18)
                 .addComponent(pesquisar_Bt)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(valor_lb)
                 .addGap(18, 18, 18)
                 .addComponent(valor_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(posicao_lb)
                 .addGap(18, 18, 18)
                 .addComponent(posicao_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,103 +169,129 @@ public class ListaSequenc extends javax.swing.JFrame {
 
     private void inserir_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserir_BtActionPerformed
         l = getBufferStrategy().getDrawGraphics();
-        if(validarCampos() && validarPosicao()){
-            if(lista.vazia()){
+        if(validarValor() && validarPosicao()){
+            //pega os valores digitados e coloca na lista
+            valor = Integer.parseInt(valor_txt.getText());
+            posicao = Integer.parseInt(posicao_txt.getText());
+            lista.insere(posicao, valor); 
+            //informa o numero de elementos na lista
+            elementos++;
+            elementos_txt.setText(Integer.toString(elementos));                
+            //insere em lista vazia
+            if(lista.vazia()){                
+                //quadrado
                 l.drawRect(x,200,30 ,20);
-                l.drawString(valor_txt.getText(),x+10, 210);
-                c = Integer.parseInt(valor_txt.getText());
-                p = Integer.parseInt(posicao_txt.getText());
-                lista.insere(p, c);
+                //string com os valores
+                l.drawString(valor_txt.getText(),x+10, 210);            
                 x = x+45;
                 l.dispose();
-                getBufferStrategy().show();
-                e++;
-                valor_txt.setText(null);
-                posicao_txt.setText(null);
+                getBufferStrategy().show();                   
+            }            
+            //insere no fim
+            else if (Integer.parseInt(posicao_txt.getText())== elementos+1){ 
+                //quadrado
+                l.drawRect(x,200,30 ,20);
+                //string com os valores
+                l.drawString(valor_txt.getText(),x+10, 210);
+                //linha horizontal
+                l.drawLine(x-15, 210, x, 210);            
+                x = x+45;
+                l.dispose();           
+                getBufferStrategy().show();                
             }
-            else if (Integer.parseInt(posicao_txt.getText())== e+1 && validarCampos() || validarPosicao()) {
-                l.drawRect(x,200,30 ,20);
-                l.drawString(valor_txt.getText(),x+10, 210);
-                c = Integer.parseInt(valor_txt.getText());
-                p = Integer.parseInt(posicao_txt.getText());
-                lista.insere(p, c);
-                x = x+45;
-                l.dispose();
-                e++;
-                getBufferStrategy().show();
-                valor_txt.setText(null);
-                posicao_txt.setText(null);
-                }
-            else if(0<Integer.parseInt(posicao_txt.getText()) && Integer.parseInt(posicao_txt.getText())<e+1){
-                p = Integer.parseInt(posicao_txt.getText());
-                c = Integer.parseInt(valor_txt.getText());
-                lista.insere(p, c);
-                l.clearRect(20, 190,500, 500);
-                e++;
-                x = 20;
-                l.drawRect(x,200,30 ,20);
-                l.drawString(valor_txt.getText(),x+10, 210);
-                x = x+45;
-                for (int k = 2; k<=e; k++){
+            //insere no meio ou no inicio
+            else if(0<Integer.parseInt(posicao_txt.getText()) && Integer.parseInt(posicao_txt.getText())<elementos+1){
+                if(Integer.parseInt(posicao_txt.getText()) ==1){
+                    //limpa
+                    l.clearRect(20, 190,500, 20);                   
+                    x = 20;
+                    //quadrado
                     l.drawRect(x,200,30 ,20);
+                    //string com os valores
+                    l.drawString(valor_txt.getText(),x+10, 210);
+                    x = x+45;
+                    //desloca o desenho
+                }
+                else{  
+                    x = 20;
+                    //quadrado
+                    l.drawRect(x,200,30 ,20);
+                    x = x+45;
+                    //limpa
+                    l.clearRect(x, 190,500, 20);
+                }
+                for(int k = 2; k<=elementos; k++){
+                    //quadrado
+                    l.drawRect(x,200,30 ,20);
+                    //string com os valores
                     v = Integer.toString(lista.elemento(k));
                     l.drawString(v,x+10, 210);
-                    x = x+45;
+                    //linha horizontal
+                    l.drawLine(x-15, 210, x, 210);
+                    x = x+45;  
                 }
-                valor_txt.setText(null);
-                posicao_txt.setText(null);
-                l.dispose();
-                getBufferStrategy().show();
-
             }
-        }        
+        }
+        //limpa os valores
+        valor_txt.setText(null);
+        posicao_txt.setText(null); 
     }//GEN-LAST:event_inserir_BtActionPerformed
 
     private void remover_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_BtActionPerformed
         l = getBufferStrategy().getDrawGraphics();
-            if(lista.vazia()){
-                JOptionPane.showMessageDialog(rootPane, "LISTA VAZIA", "ERRO", HEIGHT);
+        if(lista.vazia()){
+            JOptionPane.showMessageDialog(rootPane, "LISTA VAZIA", "ERRO", HEIGHT);
+        }
+        else if(validarPosicao()){
+            if(Integer.parseInt(posicao_txt.getText())<=elementos && validarPosicao()){
+                int p = Integer.parseInt(posicao_txt.getText());
+                //limpa
+                l.clearRect(0, 190,x+100, 500);
+                lista.remove(p);
+                x = 20;
+                //reescreve 
+                for (int k = 1; k<elementos; k++){
+                    if(k==1){
+                        //quadrado
+                        l.drawRect(x,200,30 ,20);
+                        //string com os valores
+                        v = Integer.toString(lista.elemento(k));
+                        l.drawString(v,x+10, 210);
+                        x = x+45;
+                        posicao_txt.setText(null);
+                    }
+                    //se nao for 1 desenha a ligacao
+                    else{
+                        //quadrado
+                        l.drawRect(x, 200, 30, 20);
+                        //string com os valores
+                        v = Integer.toString(lista.elemento(k));                        
+                        l.drawString(v,x+10, 210);
+                        l.drawLine(x-15, 210, x, 210);
+                        x = x+45;
+                    }
+                }
+                l.dispose();
+                getBufferStrategy().show();
+                //informa o numero de elementos na lista
+                elementos--; 
+                elementos_txt.setText(Integer.toString(elementos));
             }
-            else if(validarPosicao()){
-            if(Integer.parseInt(posicao_txt.getText())<=e && validarPosicao()){
-               int p = Integer.parseInt(posicao_txt.getText());
-               l.clearRect(0, 190,x+100, 500);
-               lista.remove(p);
-               x = 20;
-               e--;
-               for (int k = 1; k<=e; k++){
-                   if(k==1){
-                    l.drawRect(x,200,30 ,20);
-                    v = Integer.toString(lista.elemento(k));
-                    l.drawString(v,x+10, 210);
-                    x = x+45;
-                    posicao_txt.setText(null);
-                   }
-                   else{
-                    v = Integer.toString(lista.elemento(k));   
-                    l.drawRect(x, 200, 30, 20);
-                    l.drawString(v,x+10, 210);
-                    x = x+45;
-                   }
-               }
-               l.dispose();
-               getBufferStrategy().show();
-           }
-       }
+        }
     }//GEN-LAST:event_remover_BtActionPerformed
     private void pesquisar_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_BtActionPerformed
         if(lista.vazia()){
             JOptionPane.showMessageDialog(rootPane, "ERRO: Lista Vazia!", "ERRO", HEIGHT);
         }
         else if(validarPosicao()){
-            p = Integer.parseInt(posicao_txt.getText());
+            posicao = Integer.parseInt(posicao_txt.getText());
             posicao_txt.setText(null);
-            valor_txt.setText(Integer.toString(lista.elemento(p)));
+            valor_txt.setText(Integer.toString(lista.elemento(posicao)));
                 }
         else if(validarPosicao()){
-            c = Integer.parseInt(valor_txt.getText());
+            valor = Integer.parseInt(valor_txt.getText());
             posicao_txt.setText(null);
-            valor_txt.setText(Integer.toString(lista.posicao(c)));
+            valor_txt.setText(Integer.toString(lista.posicao(valor)));
         }
     }//GEN-LAST:event_pesquisar_BtActionPerformed
 
@@ -293,12 +331,14 @@ public class ListaSequenc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel elementos_lb;
+    private javax.swing.JLabel elementos_txt;
     private javax.swing.JButton inserir_Bt;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton pesquisar_Bt;
+    private javax.swing.JLabel posicao_lb;
     private javax.swing.JTextField posicao_txt;
     private javax.swing.JButton remover_Bt;
+    private javax.swing.JLabel valor_lb;
     private javax.swing.JTextField valor_txt;
     // End of variables declaration//GEN-END:variables
 }

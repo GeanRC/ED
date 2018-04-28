@@ -3,7 +3,6 @@ package InterfaceGrafica;
 
 import Implementacoes.PilhaEnc;
 import java.awt.Graphics;
-import static java.awt.image.ImageObserver.HEIGHT;
 import javax.swing.JOptionPane;
 
 /*
@@ -11,21 +10,22 @@ import javax.swing.JOptionPane;
  */
 
 public class Pilha extends javax.swing.JFrame {
-    
-    public Pilha(){
+
+    public Pilha() {
         initComponents();
         createBufferStrategy(1);
         setLocationRelativeTo(null);
     }
-
+    
     Graphics e;
     PilhaEnc pilhaEnc = new PilhaEnc();
+    //eixo em destaque Y
     int y = 300;
     String t = new String();
-    int save;
-    int elem = 0;
+    int valor;
+    int elementos = 0;
     
-    public boolean validarCampos(){
+    public boolean validarValor(){
         if(valor_txt.getText().isEmpty()){
             //Verifica se tem campo vazio
             JOptionPane.showMessageDialog(this, "Campo vazio! Por favor preencha!", "Campo vazio", JOptionPane.ERROR_MESSAGE);
@@ -41,8 +41,7 @@ public class Pilha extends javax.swing.JFrame {
             }
         }
         return true;
-    }
-    
+    }    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,167 +52,165 @@ public class Pilha extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        push_BT = new javax.swing.JButton();
-        pop_BT = new javax.swing.JButton();
-        top_BT = new javax.swing.JButton();
+        push_bt = new javax.swing.JButton();
+        pop_bt = new javax.swing.JButton();
+        top_bt = new javax.swing.JButton();
         valor_txt = new javax.swing.JTextField();
+        valor_lb = new javax.swing.JLabel();
+        elementos_lb = new javax.swing.JLabel();
         elementos_txt = new javax.swing.JLabel();
-        topo_Ti = new javax.swing.JLabel();
-        elementos_Ti = new javax.swing.JLabel();
+        topo_lb = new javax.swing.JLabel();
         topo_txt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pilha (Encadeada)");
+        setTitle("Pilha Encadeada");
 
-        push_BT.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        push_BT.setText("Push");
-        push_BT.addActionListener(new java.awt.event.ActionListener() {
+        push_bt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        push_bt.setText("Push");
+        push_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                push_BTActionPerformed(evt);
+                push_btActionPerformed(evt);
             }
         });
 
-        pop_BT.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        pop_BT.setText("Pop");
-        pop_BT.addActionListener(new java.awt.event.ActionListener() {
+        pop_bt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pop_bt.setText("Pop");
+        pop_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pop_BTActionPerformed(evt);
+                pop_btActionPerformed(evt);
             }
         });
 
-        top_BT.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        top_BT.setText("Top");
-        top_BT.addActionListener(new java.awt.event.ActionListener() {
+        top_bt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        top_bt.setText("Top");
+        top_bt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                top_BTActionPerformed(evt);
+                top_btActionPerformed(evt);
             }
         });
 
-        valor_txt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        valor_txt.setFocusCycleRoot(true);
-        valor_txt.setFocusTraversalPolicyProvider(true);
-        valor_txt.setNextFocusableComponent(valor_txt);
         valor_txt.setOpaque(false);
 
-        elementos_txt.setText(" ");
+        valor_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        valor_lb.setText("Valor:");
 
-        topo_Ti.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        topo_Ti.setText("Topo:");
+        elementos_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        elementos_lb.setText("Elementos:");
 
-        elementos_Ti.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        elementos_Ti.setText("Elementos:");
-
-        topo_txt.setText(" ");
+        topo_lb.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        topo_lb.setText("Topo:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(559, Short.MAX_VALUE)
+                .addGap(609, 609, 609)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(push_BT, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(pop_BT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(top_BT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(valor_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(topo_Ti)
-                            .addGap(58, 58, 58)
-                            .addComponent(topo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(elementos_Ti)
-                        .addGap(18, 18, 18)
-                        .addComponent(elementos_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(top_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pop_bt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(elementos_lb)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elementos_txt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(push_bt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(valor_txt)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(valor_lb)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(topo_lb)
+                        .addGap(38, 38, 38)
+                        .addComponent(topo_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(topo_Ti)
-                    .addComponent(topo_txt))
+                .addGap(109, 109, 109)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(topo_lb)
+                    .addComponent(topo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(elementos_lb)
+                    .addComponent(elementos_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(elementos_txt)
-                    .addComponent(elementos_Ti))
+                .addComponent(push_bt)
                 .addGap(18, 18, 18)
-                .addComponent(push_BT)
+                .addComponent(pop_bt)
                 .addGap(18, 18, 18)
-                .addComponent(pop_BT)
+                .addComponent(top_bt)
                 .addGap(18, 18, 18)
-                .addComponent(top_BT)
+                .addComponent(valor_lb)
                 .addGap(18, 18, 18)
                 .addComponent(valor_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void push_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_push_BTActionPerformed
-        e = getBufferStrategy().getDrawGraphics();
-        topo_txt.setText(" ");
-        if(validarCampos()){
-        if(pilhaEnc.vazia()){
-            e.drawRect(250, y, 40, 50);
-            e.drawLine(250, y+15, 290, y+15);
+    private void push_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_push_btActionPerformed
+        e = getBufferStrategy().getDrawGraphics();  
+        if(validarValor()){
+            //se tiver algum elemento faz linha de ligacao
+            if(pilhaEnc.vazia()==false){
+                //linha vertical
+                e.drawLine(275,y+50 ,275 ,y+70);
+            }
+            //pega valor digitado e coloca na pilha
             t = valor_txt.getText();
-            e.drawString(t, 270, y+30);
-            save = Integer.parseInt(t);
-            pilhaEnc.push(save);
+            valor = Integer.parseInt(t);
+            pilhaEnc.push(valor);
             valor_txt.setText(null);
+            //quadrado
+            e.drawRect(250, y, 40, 50);     
+            //linha horizontal
+            e.drawLine(250, y+15, 290, y+15);
+            //string com os valores
+            e.drawString(t, 270, y+30);  
             y = y-70;
             e.dispose();
             getBufferStrategy().show();
-            elem++;
-            elementos_txt.setText(Integer.toString(elem));
+            //informa o numero de elementos na pilha
+            elementos++;
+            elementos_txt.setText(Integer.toString(elementos));
+        }
+        //limpa os valores
+        topo_txt.setText("");
+        valor_txt.setText("");
+    }//GEN-LAST:event_push_btActionPerformed
+
+    private void pop_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pop_btActionPerformed
+        e = getBufferStrategy().getDrawGraphics();
+        if(pilhaEnc.vazia()){
+            JOptionPane.showMessageDialog(rootPane, "Pilha Vazia", "ERRO", HEIGHT);
         }
         else{
-            e.drawRect(250, y, 40, 50);
-            e.drawLine(250, y+15, 290, y+15);
-            e.drawLine(275,y+50 ,275 ,y+70);
-            t = valor_txt.getText();
-            e.drawString(t, 270, y+30);
-            save = Integer.parseInt(t);
-            pilhaEnc.push(save);
-            valor_txt.setText(null);
-            y = y-70;
+            //remove valor da pilha
+            pilhaEnc.pop();
+            //limpa e meche no Y
+            e.clearRect(249, y+70, 42, 70);
+            y = y + 70;
             e.dispose();
             getBufferStrategy().show();
-            elem++;
-            elementos_txt.setText(Integer.toString(elem));
+            //informa o numero de elementos na pilha
+            elementos--;
+            elementos_txt.setText(Integer.toString(elementos));
         }
-        }
+        //limpa os valores
+        topo_txt.setText("");
         valor_txt.setText("");
-    }//GEN-LAST:event_push_BTActionPerformed
-
-    private void pop_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pop_BTActionPerformed
-       e = getBufferStrategy().getDrawGraphics();
-       topo_txt.setText(" ");
-       if(pilhaEnc.vazia()){
-           JOptionPane.showMessageDialog(rootPane, "Pilha Vazia", "ERRO", HEIGHT);
-       }
-       else{
-           pilhaEnc.pop();
-           e.clearRect(249, y+70, 42, 70);
-           y = y + 70;
-           e.dispose();
-           getBufferStrategy().show();
-           elem--;
-           elementos_txt.setText(Integer.toString(elem));
-       }
-       valor_txt.setText("");
-    }//GEN-LAST:event_pop_BTActionPerformed
-    private void top_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_top_BTActionPerformed
+    }//GEN-LAST:event_pop_btActionPerformed
+    private void top_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_top_btActionPerformed
         if(pilhaEnc.vazia()){
             JOptionPane.showMessageDialog(rootPane, "Pilha vazia", "ERRO", HEIGHT);
         }
         else{
             topo_txt.setText(Integer.toString(pilhaEnc.top()));
         }
-    }//GEN-LAST:event_top_BTActionPerformed
+    }//GEN-LAST:event_top_btActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,6 +238,13 @@ public class Pilha extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Pilha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -251,13 +255,14 @@ public class Pilha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel elementos_Ti;
+    private javax.swing.JLabel elementos_lb;
     private javax.swing.JLabel elementos_txt;
-    private javax.swing.JButton pop_BT;
-    private javax.swing.JButton push_BT;
-    private javax.swing.JButton top_BT;
-    private javax.swing.JLabel topo_Ti;
+    private javax.swing.JButton pop_bt;
+    private javax.swing.JButton push_bt;
+    private javax.swing.JButton top_bt;
+    private javax.swing.JLabel topo_lb;
     private javax.swing.JLabel topo_txt;
+    private javax.swing.JLabel valor_lb;
     private javax.swing.JTextField valor_txt;
     // End of variables declaration//GEN-END:variables
 }
