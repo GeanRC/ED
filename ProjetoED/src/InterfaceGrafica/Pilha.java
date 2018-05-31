@@ -2,6 +2,7 @@
 package InterfaceGrafica;
 
 import Implementacoes.PilhaEnc;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
 
@@ -157,7 +158,9 @@ public class Pilha extends javax.swing.JFrame {
             //se tiver algum elemento faz linha de ligacao
             if(pilhaEnc.vazia()==false){
                 //linha vertical
+                e.setColor(Color.BLUE);
                 e.drawLine(275,y+50 ,275 ,y+70);
+                e.setColor(Color.BLACK);
             }
             //pega valor digitado e coloca na pilha
             t = valor_txt.getText();
@@ -167,7 +170,9 @@ public class Pilha extends javax.swing.JFrame {
             //quadrado
             e.drawRect(250, y, 40, 50);     
             //linha horizontal
+            e.setColor(Color.BLUE);
             e.drawLine(250, y+15, 290, y+15);
+            e.setColor(Color.BLACK);
             //string com os valores
             e.drawString(t, 270, y+30);  
             y = y-70;

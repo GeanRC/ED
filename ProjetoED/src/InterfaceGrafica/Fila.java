@@ -3,6 +3,7 @@ package InterfaceGrafica;
 
 import Implementacoes.FilaEnc;
 import Implementacoes.ListaSeq;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
 
@@ -160,7 +161,9 @@ public class Fila extends javax.swing.JFrame {
             //se nao for vazia desenha ligacao
             if(fila.vazia()==false){
                 //linha horizontal
+                l.setColor(Color.BLUE);
                 l.drawLine(x-15, 210, x, 210); 
+                l.setColor(Color.BLACK);
             } 
             //pega os valores digitados e coloca na lista
             valor = Integer.parseInt(valor_txt.getText());            
@@ -211,7 +214,9 @@ public class Fila extends javax.swing.JFrame {
                 v = Integer.toString(lista.elemento(k));                
                 l.drawString(v,x+10, 210);
                 //linha horizontal 
+                l.setColor(Color.BLUE);
                 l.drawLine(x-15, 210, x, 210);
+                l.setColor(Color.BLACK);
                 x = x+45;
             }
         }

@@ -2,6 +2,7 @@
 package InterfaceGrafica;
 
 import Implementacoes.ListaSeq;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
 
@@ -194,7 +195,9 @@ public class ListaSequenc extends javax.swing.JFrame {
                 //string com os valores
                 l.drawString(valor_txt.getText(),x+10, 210);
                 //linha horizontal
-                l.drawLine(x-15, 210, x, 210);            
+                l.setColor(Color.BLUE);
+                l.drawLine(x-15, 210, x, 210);
+                l.setColor(Color.BLACK);
                 x = x+45;
                 l.dispose();           
                 getBufferStrategy().show();                
@@ -227,7 +230,9 @@ public class ListaSequenc extends javax.swing.JFrame {
                     v = Integer.toString(lista.elemento(k));
                     l.drawString(v,x+10, 210);
                     //linha horizontal
+                    l.setColor(Color.BLUE);
                     l.drawLine(x-15, 210, x, 210);
+                    l.setColor(Color.BLACK);
                     x = x+45;  
                 }
             }

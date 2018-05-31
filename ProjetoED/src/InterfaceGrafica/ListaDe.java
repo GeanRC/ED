@@ -2,6 +2,7 @@
 package InterfaceGrafica;
 
 import Implementacoes.ListaDE;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
 
@@ -197,10 +198,14 @@ public class ListaDe extends javax.swing.JFrame {
                 //string com os valores
                 l.drawString(valor_txt.getText(),x+10, 210);
                 //linha vertical
+                l.setColor(Color.BLUE);
                 l.drawLine(x+5, 200, x+5, 220);
                 l.drawLine(x+35, 200, x+35, 220);
+                l.setColor(Color.BLACK);
                 //linha horizontal
-                l.drawLine(x-5, 215, x, 215);            
+                l.setColor(Color.BLUE);
+                l.drawLine(x-5, 215, x, 215);
+                l.setColor(Color.BLACK);
                 x = x+45;
                 l.dispose();           
                 getBufferStrategy().show();                
@@ -216,8 +221,10 @@ public class ListaDe extends javax.swing.JFrame {
                     //string com os valores
                     l.drawString(valor_txt.getText(),x+10, 210);
                     //linha vertical
+                    l.setColor(Color.BLUE);
                     l.drawLine(x+5, 200, x+5, 220);
                     l.drawLine(x+35, 200, x+35, 220);
+                    l.setColor(Color.BLACK);
                     x = x+45;
                     //desloca o desenho
                 }
@@ -236,10 +243,14 @@ public class ListaDe extends javax.swing.JFrame {
                     v = Integer.toString(lista.elemento(k));
                     l.drawString(v,x+10, 210);
                     //linha vertical
+                    l.setColor(Color.BLUE);
                     l.drawLine(x+5, 200, x+5, 220);
                     l.drawLine(x+35, 200, x+35, 220);
-                    //linha horizontal                    
+                    l.setColor(Color.BLACK);
+                    //linha horizontal     
+                    l.setColor(Color.BLUE);
                     l.drawLine(x-5, 210, x, 210);
+                    l.setColor(Color.BLACK);
                     x = x+45;  
                 }
             }
@@ -267,8 +278,10 @@ public class ListaDe extends javax.swing.JFrame {
                         //quadrado
                         l.drawRect(x,200,40 ,20);
                         //linhas verticais
+                        l.setColor(Color.BLUE);
                         l.drawLine(x+5, 200, x+5, 220);
                         l.drawLine(x+35, 200, x+35, 220);
+                        l.setColor(Color.BLACK);
                         //string com os valores
                         v = Integer.toString(lista.elemento(k));                        
                         l.drawString(v,x+10, 210);
@@ -280,13 +293,17 @@ public class ListaDe extends javax.swing.JFrame {
                         //quadrado
                         l.drawRect(x, 200, 40, 20);
                         //linhas verticais
+                        l.setColor(Color.BLUE);
                         l.drawLine(x+5, 200, x+5, 220);
                         l.drawLine(x+35, 200, x+35, 220);
+                        l.setColor(Color.BLACK);
                         //string com os valores
                         v = Integer.toString(lista.elemento(k));  
                         l.drawString(v,x+10, 210);
                         //horizontal
+                        l.setColor(Color.BLUE);
                         l.drawLine(x-5, 210, x, 210); 
+                        l.setColor(Color.BLACK);
                         x = x+45;
                     }
                 }
