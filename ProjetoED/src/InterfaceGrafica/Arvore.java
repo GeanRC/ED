@@ -6,13 +6,14 @@ package InterfaceGrafica;
  */
 
 import Implementacoes.ABP;
+import Implementacoes.ArvBin;
 import Implementacoes.No2;
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Graphics;
 
 class No3{
-    int vd, pd, pe;
+    int vd, profunDir, profunEsq;
     No3 dir, esq;
     int pX = 0, pY = 0;
 }
@@ -27,8 +28,8 @@ class funAdicionais extends javax.swing.JPanel {
         if(noAuxiliar == null){
             novo = new No3();
             novo.vd = valorDigitado;
-            novo.pd = 0;
-            novo.pe = 0;
+            novo.profunDir = 0;
+            novo.profunEsq = 0;
             novo.esq = null;
             novo.dir = null;
             noAuxiliar = novo;
@@ -38,21 +39,21 @@ class funAdicionais extends javax.swing.JPanel {
         else if(valorDigitado < noAuxiliar.vd){
             noAuxiliar.esq = inserir(noAuxiliar.esq, valorDigitado);
             //se o a prof da direita for maior q a esquerda, prof esquerda = prof direita +1
-            if(noAuxiliar.esq.pd > noAuxiliar.esq.pe){
-                noAuxiliar.pe = noAuxiliar.esq.pd + 1;
+            if(noAuxiliar.esq.profunDir > noAuxiliar.esq.profunEsq){
+                noAuxiliar.profunEsq = noAuxiliar.esq.profunDir + 1;
             }else{
                 //se n, prof esq +1
-                noAuxiliar.pe = noAuxiliar.esq.pe + 1;
+                noAuxiliar.profunEsq = noAuxiliar.esq.profunEsq + 1;
             }
             //verifica se o valor inserido é maior
             //direita
         }else{
             noAuxiliar.dir = inserir(noAuxiliar.dir, valorDigitado);
             // se a prof da direita for maior q a prof da esq na direita, prof direita +1, ou seja, um filho para a direita
-            if (noAuxiliar.dir.pd > noAuxiliar.dir.pe) {
-                noAuxiliar.pd = noAuxiliar.dir.pd + 1;
+            if (noAuxiliar.dir.profunDir > noAuxiliar.dir.profunEsq) {
+                noAuxiliar.profunDir = noAuxiliar.dir.profunDir + 1;
             } else {// se n, um filho para a esquerda
-                noAuxiliar.pd = noAuxiliar.dir.pe + 1;
+                noAuxiliar.profunDir = noAuxiliar.dir.profunEsq + 1;
             }
         }
         return noAuxiliar;
@@ -73,25 +74,25 @@ class funAdicionais extends javax.swing.JPanel {
             //desenha uma bola
             g.drawOval(noAuxiliar.pX-10, noAuxiliar.pY-15, 30, 30);
             //verifica o tam da prof que foi inserido no metodo inserir
-            if(noAuxiliar.pe > 0 ){
+            if(noAuxiliar.profunEsq > 0 ){
                 //se prof for igual a 1, então -fat, pois é o primeiro elemento
-                if(noAuxiliar.pe == 1){
+                if(noAuxiliar.profunEsq == 1){
                     noAuxiliar.esq.pX = noAuxiliar.pX - afastamento;
                     noAuxiliar.esq.pY = noAuxiliar.pY + afastamento;
                 }
-                else if(noAuxiliar.pe>=2){
+                else if(noAuxiliar.profunEsq>=2){
                     noAuxiliar.esq.pX = noAuxiliar.pX - afastamento;
                     noAuxiliar.esq.pY = noAuxiliar.pY + afastamento;
                     //caso a altura seja maior que 2, e feito um afastamento nos nós 
                 }
                 showTree(noAuxiliar.esq);
             } 
-            if(noAuxiliar.pd > 0){
-                if(noAuxiliar.pd == 1){
+            if(noAuxiliar.profunDir > 0){
+                if(noAuxiliar.profunDir == 1){
                     noAuxiliar.dir.pX = noAuxiliar.pX + afastamento;
                     noAuxiliar.dir.pY = noAuxiliar.pY + afastamento;
                 }
-                else if(noAuxiliar.pd>=2){
+                else if(noAuxiliar.profunDir>=2){
                     noAuxiliar.dir.pX = noAuxiliar.pX + afastamento;
                     noAuxiliar.dir.pY = noAuxiliar.pY + afastamento;
                 }
@@ -117,7 +118,7 @@ class funAdicionais extends javax.swing.JPanel {
             g.setColor(Color.BLUE);
              //recursividade ir desenhar a linha da esquerda
             drawLine(noAuxiliar.esq,noAuxiliar.pX,noAuxiliar.pY,draw);
-            //recursividade ir desenhar a linha da esquerda
+            //recursividade ir desenhar a linha da direita
             drawLine(noAuxiliar.dir,noAuxiliar.pX,noAuxiliar.pY,draw);
         }
     }
@@ -136,9 +137,8 @@ class funAdicionais extends javax.swing.JPanel {
             }
         }
         return loop;
-    }
+    }   
     
-
     /**
      * Creates new form fk
      */
@@ -172,8 +172,9 @@ public class Arvore extends javax.swing.JFrame {
     No2 ra = null;
     funAdicionais arvore = new funAdicionais();
     ABP arv =  new ABP();
+    ArvBin arvbin = new ArvBin();
     int valor, valor2;
-    
+
     public Arvore() {
         initComponents();        
         arvore.add(this.bt_adicionar);
@@ -265,6 +266,7 @@ public class Arvore extends javax.swing.JFrame {
 //                arvore.repaint();
                 no = arvore.inserir(no, valor);
                 arv.insere(valor2);
+//                arvbin.
             }  
             if(no == null){  
                 JOptionPane.showMessageDialog(null, "Ávore sem Nós, vazia");
@@ -306,6 +308,7 @@ public class Arvore extends javax.swing.JFrame {
                 txt_buscar.setText(null); 
             }
         }
+
     }//GEN-LAST:event_bt_buscarActionPerformed
 
     /**
