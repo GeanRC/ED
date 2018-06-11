@@ -12,7 +12,7 @@ public class ListaSeq {
     private int tamMax;
     
     public ListaSeq(){
-        tamMax = 100;
+        tamMax = 10;
         nElementos = 0;
         dados = new int[tamMax];
     }

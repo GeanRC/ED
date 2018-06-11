@@ -204,9 +204,9 @@ public class ListaDe extends javax.swing.JFrame {
                 l.setColor(Color.BLACK);
                 //linha horizontal
                 l.setColor(Color.BLUE);
-                l.drawLine(x-5, 215, x, 215);
+                l.drawLine(x-15, 215, x, 215);
                 l.setColor(Color.BLACK);
-                x = x+45;
+                x = x+55;
                 l.dispose();           
                 getBufferStrategy().show();                
             }
@@ -225,14 +225,14 @@ public class ListaDe extends javax.swing.JFrame {
                     l.drawLine(x+5, 200, x+5, 220);
                     l.drawLine(x+35, 200, x+35, 220);
                     l.setColor(Color.BLACK);
-                    x = x+45;
+                    x = x+55;
                     //desloca o desenho
                 }
                 else{  
                     x = 20;
                     //quadrado
                     l.drawRect(x,200,40 ,20);
-                    x = x+45;
+                    x = x+55;
                     //limpa
                     l.clearRect(x, 190,500, 20);
                 }
@@ -249,9 +249,9 @@ public class ListaDe extends javax.swing.JFrame {
                     l.setColor(Color.BLACK);
                     //linha horizontal     
                     l.setColor(Color.BLUE);
-                    l.drawLine(x-5, 210, x, 210);
+                    l.drawLine(x-15, 210, x, 210);
                     l.setColor(Color.BLACK);
-                    x = x+45;  
+                    x = x+55;  
                 }
             }
         }
@@ -285,7 +285,7 @@ public class ListaDe extends javax.swing.JFrame {
                         //string com os valores
                         v = Integer.toString(lista.elemento(k));                        
                         l.drawString(v,x+10, 210);
-                        x = x+45;
+                        x = x+55;
                         posicao_txt.setText(null);
                     }
                     //se nao for 1 desenha a ligacao
@@ -302,9 +302,9 @@ public class ListaDe extends javax.swing.JFrame {
                         l.drawString(v,x+10, 210);
                         //horizontal
                         l.setColor(Color.BLUE);
-                        l.drawLine(x-5, 210, x, 210); 
+                        l.drawLine(x-15, 210, x, 210); 
                         l.setColor(Color.BLACK);
-                        x = x+45;
+                        x = x+55;
                     }
                 }
                 l.dispose();
