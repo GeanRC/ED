@@ -3,28 +3,23 @@ package InterfaceGrafica;
 
 import Panels.validar;
 import Panels.ArvPanel;
-import Panels.ArvPanelTESTEZICA;
 import javax.swing.JOptionPane;
 
 /*
  * @author Gean RC
  */
 
-
 public class Arvore extends javax.swing.JFrame {
-//    ArvPanel arvore = new ArvPanel();
-    ArvPanelTESTEZICA arvore = new ArvPanelTESTEZICA();
+    ArvPanel arvore = new ArvPanel();
     validar validar = new validar();
+    
     public Arvore(){
         initComponents();
         exibir_bt.setEnabled(false);
         painel_jp.add(arvore);
         arvore.setSize(700,417);
         setLocationRelativeTo(null);
-    }
-    
-    
-    
+    }  
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -126,8 +121,6 @@ public class Arvore extends javax.swing.JFrame {
             arvore.chamar(str);
             exibir_bt.setEnabled(true);            
         }
-        
-//        adicionar_txt.setText("");
     }//GEN-LAST:event_adicionar_btActionPerformed
 
     private void pesquisar_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_btActionPerformed

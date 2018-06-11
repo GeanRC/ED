@@ -3,7 +3,6 @@ package Panels;
 
 import Implementacoes.ABP;
 import Implementacoes.No2;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.logging.Level;
@@ -27,15 +26,6 @@ public class ArvPanel extends javax.swing.JPanel {
     boolean arvPintada = false;
     private int raioCirculo = 15; 
     private int sepVertical = 30;  
-    
-//    private boolean  Adicionar( int valor){
-//        if(arv.insere(valor)){
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//    }
     
     private static No2 Adicionar(No2 noAux, int valor){
         //funcao pra inserir na arvore
@@ -61,7 +51,7 @@ public class ArvPanel extends javax.swing.JPanel {
             }
         }
         return new int[2];
-    }
+    }   
     
     private boolean Pesquisar(No2 noAux, int valor){
         //funcao recursiva pra procurar valor na arvore 
@@ -74,41 +64,30 @@ public class ArvPanel extends javax.swing.JPanel {
         if(noAux == null){ 
             return false;
         }
-        //se o valor for encontrado muda pra cor verde
-        if(valor == noAux.getConteudo()){
-            int[] temp = ProcurarCoordenadas(noAux.getConteudo());
+        int[] temp = ProcurarCoordenadas(noAux.getConteudo());
             if(temp[0] != 0 && temp[1] != 0){
-                g.setColor(Color.green); 
+                if(valor == noAux.getConteudo()){
+                    //se o valor for encontrado muda pra cor verde
+                    g.setColor(Color.green);                   
+                }else{
+                    //se nao pinta tudo de amarelo
+                    g.setColor(Color.yellow);                    
+                }                 
                 g.fillOval(temp[0], temp[1], 30, 30);
                 g.setColor(Color.black);
                 g.drawString(noAux.getConteudo() + "", temp[0] + 10, temp[1] + 20);
+            } 
+            
+            if(valor == noAux.getConteudo()){
+                return true; 
+            }else if (valor<noAux.getConteudo()){
+                //na subarvore da esquerda pois os dados são menores que os dados do no atual
+                return Pesquisar(noAux.getEsq(), valor);
             }
-            return true; 
-        } 
-        //se nao encontrar valor muda pra a cor pra amarelo
-        //na subarvore da esquerda pois os dados são menores que os dados do no atual
-        else if (valor<noAux.getConteudo()){
-            int[] temp = ProcurarCoordenadas(noAux.getConteudo());
-            if(temp[0] != 0 && temp[1] != 0){
-                g.setColor(Color.yellow);                
-                g.fillOval(temp[0], temp[1], 30, 30);
-                g.setColor(Color.black);
-                g.drawString(noAux.getConteudo() + "", temp[0] + 10, temp[1] + 20);
+            else{
+                //na subarvore da direita pois os dados são maiores que os dados do no atual
+                return Pesquisar(noAux.getDir(), valor);
             }
-            return Pesquisar(noAux.getEsq(), valor);
-        } 
-        //se nao encontrar valor muda pra a cor pra amarelo
-        //na subarvore da direita pois os dados são maiores que os dados do no atual
-        else{ 
-            int[] temp = ProcurarCoordenadas(noAux.getConteudo());
-            if(temp[0] != 0 && temp[1] != 0){
-                g.setColor(Color.yellow);
-                g.fillOval(temp[0], temp[1], 30, 30);
-                g.setColor(Color.black);
-                g.drawString(noAux.getConteudo() + "", temp[0] + 10, temp[1] + 20);
-            }
-            return Pesquisar(noAux.getDir(), valor);
-        }
     }
     
     public void InOrder(No2 raiz){
@@ -203,23 +182,21 @@ public class ArvPanel extends javax.swing.JPanel {
     }
     
     public void chamar(String str){
-        
-                //divide usando "," 
-                String[] treeSplit = str.split(",");
-                quantNo = treeSplit.length; 
-                //no raiz criado
-                No2 temp = new No2();
-                temp.setConteudo(Integer.parseInt(treeSplit[0]));                
-                //faz as iteracoes e adiciona nos 
-                for(int i=1; i<treeSplit.length;i++) {
-                    temp = Adicionar(temp,Integer.parseInt(treeSplit[i]));
-                }
-                //seta a raiz pra temp
-                raiz = temp;
-                //desenha arvore no painel
-//              view.PintarArvore();
-                PintarArvore();
-                arvPintada = true;
+        //divide usando ","
+        String[] treeSplit = str.split(",");
+        quantNo = treeSplit.length; 
+        //no raiz criado   
+        No2 temp = new No2();
+        temp.setConteudo(Integer.parseInt(treeSplit[0]));
+        //faz as iteracoes e adiciona nos 
+        for(int i=1; i<treeSplit.length;i++){
+            temp = Adicionar(temp,Integer.parseInt(treeSplit[i]));
+        }
+        //seta a raiz pra temp
+        raiz = temp;
+        //desenha arvore no painel
+        PintarArvore();
+        arvPintada = true;
     }
     
     public boolean buscar(int x){
@@ -238,15 +215,15 @@ public class ArvPanel extends javax.swing.JPanel {
         PosOrder(raiz);
         preOrdem = "";
         PreOrder(raiz);
-        JOptionPane.showMessageDialog(null,
-                "InOrdem:    "+inOrdem+"\r\n"+"\r\n" +"PreOrdem: "+preOrdem+"\r\n"+"\r\n" +"PosOrdem: "+posOrdem);
+        JOptionPane.showMessageDialog(null,"InOrdem:    "+inOrdem+"\r\n"+
+                                            "\r\n" +"PreOrdem: "+preOrdem+
+                                        "\r\n"+"\r\n" +"PosOrdem: "+posOrdem);
     }
     
     public ArvPanel() {
         setVisible(true);
         initComponents();
     }
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

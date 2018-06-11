@@ -8,23 +8,21 @@ import java.awt.Graphics;
 /*
  * @author Gean RC
  */
-public class ListasPanel extends javax.swing.JPanel {
 
-    int modo1=1, modo2=2, modo3=3;    
-    Graphics l;    
-    ListaSE lista = new ListaSE();
-    //eixo em destaque X
-    int x = 20;
+public class ListasPanel extends javax.swing.JPanel {
+    public ListaSE lista = new ListaSE();
+    int eixoX = 20;
     String v = new String();    
     int valor, posicao;
     int elementos = 0;
-    
-    int s = modo3;
-    int w,j,m,o;
-    int p=0;
-    //espaço dos quadrados
+    int w,j,m,o,s,p=0;    
+      
+    public void setS(int x){
+        s = x;
+    }
     
     public void quadrado(String Valor, int s){
+        Graphics l = getGraphics();
         int j;
         //valor da largura muda se for duplamente encadeada 
         if(s!=3){
@@ -35,12 +33,13 @@ public class ListasPanel extends javax.swing.JPanel {
             p=55;
         }
         //quadrado
-        l.drawRect(x,200,j,20);
+        l.drawRect(eixoX,200,j,20);
         //string com os valores
-        l.drawString(Valor,x+10, 210);
+        l.drawString(Valor,eixoX+10, 210);
     }
     
-    public void linhaVertical(int s){        
+    public void linhaVertical(int s){ 
+        Graphics l = getGraphics();
         int j=0;
         //muda a coordenada la linha dependendo do tipo de encadeamento 
         if(s==2){
@@ -50,22 +49,24 @@ public class ListasPanel extends javax.swing.JPanel {
         }
         //linha vertical
         l.setColor(Color.BLUE);
-        l.drawLine(x+j, 200, x+j, 220);
+        l.drawLine(eixoX+j, 200, eixoX+j, 220);
         if(s==3){
             //linha adicional na duplamente encadeada
-            l.drawLine(x+5, 200, x+5, 220);
+            l.drawLine(eixoX+5, 200, eixoX+5, 220);
         }
         l.setColor(Color.BLACK);
     }
     
     public void linhaHorizontal(){
+        Graphics l = getGraphics();
         //linha horizontal
         l.setColor(Color.BLUE);
-        l.drawLine(x-15, 210, x, 210);
+        l.drawLine(eixoX-15, 210, eixoX, 210);
         l.setColor(Color.BLACK);
     }
     
-    public void inserir(String Valor, String Posicao){       
+    public void inserir(String Valor, String Posicao){   
+        Graphics l = getGraphics();
         //pega os valores digitados e coloca na lista
         valor = Integer.parseInt(Valor);
         posicao = Integer.parseInt(Posicao);
@@ -78,7 +79,7 @@ public class ListasPanel extends javax.swing.JPanel {
             if(s!=1){
                 linhaVertical(s);
             }
-            x = x+p;
+            eixoX = eixoX+p;
         }else if (Integer.parseInt(Posicao)== elementos+1){ 
         //insere no fim   
             quadrado(Valor,s);
@@ -86,25 +87,25 @@ public class ListasPanel extends javax.swing.JPanel {
                 linhaVertical(s);
             }
             linhaHorizontal();
-            x = x+p;
+            eixoX = eixoX+p;
         }else if(0<Integer.parseInt(Posicao) && Integer.parseInt(Posicao)<elementos+1){
         //insere no meio ou no inicio    
             if(Integer.parseInt(Posicao) ==1){
                 //limpa
                 l.clearRect(20, 190,500, 20);  
-                x = 20;
+                eixoX = 20;
                 quadrado(Valor,s);
                 if(s!=1){
                     linhaVertical(s);
                 }   
-                x = x+p;
+                eixoX = eixoX+p;
                 //desloca o desenho
             }else{ 
-                x = 20;
+                eixoX = 20;
                 quadrado(" ",s);
-                x = x+p;
+                eixoX = eixoX+p;
                 //limpa
-                l.clearRect(x, 190,500, 20);
+                l.clearRect(eixoX, 190,500, 20);
             }
             for(int k = 2; k<=elementos; k++){
                 v = Integer.toString(lista.elemento(k));
@@ -113,18 +114,19 @@ public class ListasPanel extends javax.swing.JPanel {
                     linhaVertical(s);
                 }
                 linhaHorizontal();
-                x = x+p;
+                eixoX = eixoX+p;
             }
         }
     }
     
     public void remover(String Posicao){
+        Graphics l = getGraphics();
         if(Integer.parseInt(Posicao)<=elementos){
             int q = Integer.parseInt(Posicao);
             //limpa
-            l.clearRect(0, 190,x+100, 500);
+            l.clearRect(0, 190,eixoX+100, 500);
             lista.remove(q);
-            x = 20;
+            eixoX = 20;
             //reescreve
             for (int k = 1; k<elementos; k++){
                 //se nao e primeira posicao desenha linha horizontal
@@ -134,7 +136,7 @@ public class ListasPanel extends javax.swing.JPanel {
                 v = Integer.toString(lista.elemento(k));
                 quadrado(v,s);
                 linhaVertical(s);
-                x = x+p;
+                eixoX = eixoX+p;
             }   
             //informa o numero de elementos na lista
             elementos--;
@@ -143,10 +145,10 @@ public class ListasPanel extends javax.swing.JPanel {
     
     public int elementos(){
         return elementos;
-    }
+    }    
     
-    
-    public ListasPanel() {
+    public ListasPanel() {        
+        setVisible(true);
         initComponents();
     }
     
