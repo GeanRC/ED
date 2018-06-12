@@ -164,7 +164,7 @@ public class ListaSequenc extends javax.swing.JFrame {
     }//GEN-LAST:event_inserir_BtActionPerformed
     
     private void remover_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_BtActionPerformed
-        if(listas.lista.vazia()){
+        if(listas.lista1.vazia()){
             JOptionPane.showMessageDialog(rootPane, "LISTA VAZIA", "ERRO", JOptionPane.ERROR_MESSAGE);
         }else if(validar.validarPosicao(posicao_txt.getText())){
             listas.remover(posicao_txt.getText());
@@ -172,13 +172,13 @@ public class ListaSequenc extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_remover_BtActionPerformed
     private void pesquisar_BtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar_BtActionPerformed
-        if(listas.lista.vazia()){
+        if(listas.lista1.vazia()){
             JOptionPane.showMessageDialog(rootPane, "ERRO: Lista Vazia!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         else if(validar.validarPosicao(posicao_txt.getText())){
             int posicao = Integer.parseInt(posicao_txt.getText());
             posicao_txt.setText(null);
-            valor_txt.setText(Integer.toString(listas.lista.elemento(posicao)));
+            valor_txt.setText(Integer.toString(listas.lista1.elemento(posicao)));
         }
     }//GEN-LAST:event_pesquisar_BtActionPerformed
 

@@ -40,7 +40,70 @@ public class ArvPanel extends javax.swing.JPanel {
             }
         }
         return noAux;
-    }
+    }   
+    
+    private void DesenhaLinhaEntre2Circulos(Graphics g, int x1, int y1, int x2, int y2){    
+    // Função para desenhar uma linha entre dois círculos centrados em x1, y1 e x2, y2
+    // Computando coordenadas ajustadas
+    double d = Math.sqrt(sepVertical * sepVertical + (x2 - x1) * (x2 - x1));
+    int xAjustado = (int)(x1 - raioCirculo * (x1 - x2) / d);
+    int yAjustado = (int)(y1 - raioCirculo * (y1 - y2) / d);
+    int xAjustado2 = (int)(x2 + raioCirculo * (x1 - x2) / d);
+    int yAjustado2 = (int)(y2 + raioCirculo * (y1 - y2) / d);
+    //desenha linha entre as coordenadas ajustadas
+    g.drawLine(xAjustado, yAjustado, xAjustado2, yAjustado2);
+    }   
+        
+    private void ExibirArvore(Graphics g, No2 noAux, int x, int y, int sepHorizontal){
+        //Função para exibir uma subarvore com raiz como x, y       
+        g.setColor(Color.CYAN);
+        g.fillOval(x - raioCirculo, y - raioCirculo, 2 * raioCirculo, 2 * raioCirculo);      
+        //Armazene as coordenadas do nó, a serem usadas para procurar
+        noCoordenada[cont][0] = x - raioCirculo;
+        noCoordenada[cont][1] = y - raioCirculo;
+        noCoordenada[cont][2] = noAux.getConteudo();
+        cont++;      
+        //Escreva o valor dos dados no no
+        g.setColor(Color.black);
+        g.drawString(noAux.getConteudo() + "", x - 6, y + 4);
+
+        if(noAux.getEsq() != null){
+
+            //usa drawLine pra desenhar linha no no esquerdo
+            if(!arvPintada){
+                try{ 
+                    Thread.sleep(500);
+                }catch(InterruptedException ex){
+                    Logger.getLogger(ArvPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            //desenha linha
+            DesenhaLinhaEntre2Circulos(g, x - sepHorizontal, y + sepVertical, x, y);
+            //desenha recursivamente a subarvore esquerda, decrementa as lacunas orizontal e vertical
+            ExibirArvore(g, noAux.getEsq(), x - sepHorizontal, y + sepVertical, sepHorizontal/2);
+        }   
+        if(noAux.getDir() != null){
+            //usa drawLine pra desnhar linha para o no direito
+            if(!arvPintada){
+                try{
+                    Thread.sleep(500);
+                }catch (InterruptedException ex){
+                    Logger.getLogger(ArvPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            //desenha linha
+            DesenhaLinhaEntre2Circulos(g, x + sepHorizontal, y + sepVertical, x, y);  
+            //desenha recursivamente a subarvore direita, decrementa as lacunas orizontal e vertical
+            ExibirArvore(g, noAux.getDir(), x + sepHorizontal, y + sepVertical, sepHorizontal/2);
+        }
+    }      
+    
+    protected void PintarArvore(){
+        Graphics g = getGraphics();
+        if(raiz != null){  
+            ExibirArvore(g, raiz, getWidth()/2, 35, getWidth()/4); 
+        }
+    }    
     
     private int[] ProcurarCoordenadas(int x){
         // Procura pelas coordenadas do valor passado        
@@ -112,73 +175,6 @@ public class ArvPanel extends javax.swing.JPanel {
             PosOrder(raiz.getDir());
             posOrdem += raiz.getConteudo() + " ";
         }        
-    }
-    
-    protected void PintarArvore(){
-        Graphics g = getGraphics();
-        if(raiz != null){  
-            ExibirArvore(g, raiz, getWidth()/2, 35, getWidth()/4); 
-        }
-    }
-    
-    private void ExibirArvore(Graphics g, No2 noAux, int x, int y, int sepHorizontal){
-        //Função para exibir uma subarvore com raiz como x, y       
-        g.setColor(Color.CYAN);
-        g.fillOval(x - raioCirculo, y - raioCirculo, 2 * raioCirculo, 2 * raioCirculo);      
-        //Armazene as coordenadas do nó, a serem usadas para procurar
-        noCoordenada[cont][0] = x - raioCirculo;
-        noCoordenada[cont][1] = y - raioCirculo;
-        noCoordenada[cont][2] = noAux.getConteudo();
-
-        cont++;      
-        //Escreva o valor dos dados no no
-        g.setColor(Color.black);
-        g.drawString(noAux.getConteudo() + "", x - 6, y + 4);
-
-        if(noAux.getEsq() != null){
-
-            //usa drawLine pra desenhar linha no no esquerdo
-            if(!arvPintada){
-                try{ 
-                    Thread.sleep(500);
-                }catch(InterruptedException ex){
-                    Logger.getLogger(ArvPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            //desenha linha
-            DesenhaLinhaEntre2Circulos(g, x - sepHorizontal, y + sepVertical, x, y);
-            //desenha recursivamente a subarvore esquerda, decrementa as lacunas orizontal e vertical
-            ExibirArvore(g, noAux.getEsq(), x - sepHorizontal, y + sepVertical, sepHorizontal/2);
-
-        }   
-        if(noAux.getDir() != null){
-
-            //usa drawLine pra desnhar linha para o no direito
-            if(!arvPintada){
-                try{
-                    Thread.sleep(500);
-                }catch (InterruptedException ex){
-                    Logger.getLogger(ArvPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            //desenha linha
-            DesenhaLinhaEntre2Circulos(g, x + sepHorizontal, y + sepVertical, x, y);  
-            //desenha recursivamente a subarvore direita, decrementa as lacunas orizontal e vertical
-            ExibirArvore(g, noAux.getDir(), x + sepHorizontal, y + sepVertical, sepHorizontal/2); 
-
-        }
-    }        
-    
-    private void DesenhaLinhaEntre2Circulos(Graphics g, int x1, int y1, int x2, int y2){    
-    // Função para desenhar uma linha entre dois círculos centrados em x1, y1 e x2, y2
-    // Computando coordenadas ajustadas
-    double d = Math.sqrt(sepVertical * sepVertical + (x2 - x1) * (x2 - x1));
-    int xAjustado = (int)(x1 - raioCirculo * (x1 - x2) / d);
-    int yAjustado = (int)(y1 - raioCirculo * (y1 - y2) / d);
-    int xAjustado2 = (int)(x2 + raioCirculo * (x1 - x2) / d);
-    int yAjustado2 = (int)(y2 + raioCirculo * (y1 - y2) / d);
-    //desenha linha entre as coordenadas ajustadas
-    g.drawLine(xAjustado, yAjustado, xAjustado2, yAjustado2);
     }
     
     public void chamar(String str){

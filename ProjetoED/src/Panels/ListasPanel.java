@@ -1,7 +1,9 @@
 
 package Panels;
 
+import Implementacoes.ListaDE;
 import Implementacoes.ListaSE;
+import Implementacoes.ListaSeq;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -10,7 +12,10 @@ import java.awt.Graphics;
  */
 
 public class ListasPanel extends javax.swing.JPanel {
-    public ListaSE lista = new ListaSE();
+    public ListaSE lista2 = new ListaSE();
+    public ListaDE lista3 = new ListaDE();
+    public ListaSeq lista1 = new ListaSeq();   
+    
     int eixoX = 20;
     String v = new String();    
     int valor, posicao;
@@ -20,7 +25,7 @@ public class ListasPanel extends javax.swing.JPanel {
     public void setS(int x){
         s = x;
     }
-    
+        
     public void quadrado(String Valor, int s){
         Graphics l = getGraphics();
         int j;
@@ -57,11 +62,16 @@ public class ListasPanel extends javax.swing.JPanel {
         l.setColor(Color.BLACK);
     }
     
-    public void linhaHorizontal(){
+    public void linhaHorizontal(int s){
         Graphics l = getGraphics();
-        //linha horizontal
         l.setColor(Color.BLUE);
-        l.drawLine(eixoX-15, 210, eixoX, 210);
+        if(s!=3){
+            //linha horizontal        
+            l.drawLine(eixoX-15, 210, eixoX, 210);        
+        }else{
+            l.drawLine(eixoX-15, 205, eixoX, 205);
+            l.drawLine(eixoX-15, 215, eixoX, 215); 
+        }
         l.setColor(Color.BLACK);
     }
     
@@ -69,11 +79,30 @@ public class ListasPanel extends javax.swing.JPanel {
         Graphics l = getGraphics();
         //pega os valores digitados e coloca na lista
         valor = Integer.parseInt(Valor);
-        posicao = Integer.parseInt(Posicao);
-        lista.insere(posicao, valor); 
+        posicao = Integer.parseInt(Posicao);        
+        switch (s) {
+            case 1:
+                lista1.insere(posicao, valor);
+                lista2.insere(posicao, valor);
+                lista3.insere(posicao, valor);
+                break;
+            case 2:
+                lista2.insere(posicao, valor);
+                lista1.insere(posicao, valor);
+                lista3.insere(posicao, valor);
+                break;
+            case 3: 
+                lista3.insere(posicao, valor);
+                lista1.insere(posicao, valor);
+                lista2.insere(posicao, valor);
+                break;
+            default:
+                break;
+        }
+//        lista1.insere(posicao, valor);
         //informa o numero de elementos na lista
         elementos++;
-        if(lista.vazia()){
+        if(lista1.vazia()|lista2.vazia()|lista3.vazia()){
         //insere em lista vazia
             quadrado(Valor,s);
             if(s!=1){
@@ -86,7 +115,7 @@ public class ListasPanel extends javax.swing.JPanel {
             if(s!=1){
                 linhaVertical(s);
             }
-            linhaHorizontal();
+            linhaHorizontal(s);
             eixoX = eixoX+p;
         }else if(0<Integer.parseInt(Posicao) && Integer.parseInt(Posicao)<elementos+1){
         //insere no meio ou no inicio    
@@ -108,12 +137,28 @@ public class ListasPanel extends javax.swing.JPanel {
                 l.clearRect(eixoX, 190,500, 20);
             }
             for(int k = 2; k<=elementos; k++){
-                v = Integer.toString(lista.elemento(k));
-                quadrado(v,s); 
+                switch(s){
+            case 1:
+                v = Integer.toString(lista1.elemento(k));
+                quadrado(v,s);
+                break;
+            case 2:
+                v = Integer.toString(lista2.elemento(k));
+                quadrado(v,s);
+                break;
+            case 3: 
+                v = Integer.toString(lista3.elemento(k));
+                quadrado(v,s);
+                break;
+            default:
+                break;
+            }
+//                v = Integer.toString(lista1.elemento(k));
+//                quadrado(v,s); 
                 if(s!=1){
                     linhaVertical(s);
                 }
-                linhaHorizontal();
+                linhaHorizontal(s);
                 eixoX = eixoX+p;
             }
         }
@@ -125,16 +170,45 @@ public class ListasPanel extends javax.swing.JPanel {
             int q = Integer.parseInt(Posicao);
             //limpa
             l.clearRect(0, 190,eixoX+100, 500);
-            lista.remove(q);
+                switch(s){
+            case 1:
+                lista1.remove(q);
+                break;
+            case 2:
+                lista2.remove(q);
+                break;
+            case 3: 
+                lista3.remove(q);
+                break;
+            default:
+                break;
+            }
+//            lista1.remove(q);            
             eixoX = 20;
             //reescreve
             for (int k = 1; k<elementos; k++){
                 //se nao e primeira posicao desenha linha horizontal
                 if(k!=1){
-                    linhaHorizontal();
+                    linhaHorizontal(s);
                 }
-                v = Integer.toString(lista.elemento(k));
+                switch(s){
+            case 1:
+                v = Integer.toString(lista1.elemento(k));
                 quadrado(v,s);
+                break;
+            case 2:
+                v = Integer.toString(lista2.elemento(k));
+                quadrado(v,s);
+                break;
+            case 3: 
+                v = Integer.toString(lista3.elemento(k));
+                quadrado(v,s);
+                break;
+            default:
+                break;
+            }
+//                v = Integer.toString(lista1.elemento(k));
+//                quadrado(v,s);
                 linhaVertical(s);
                 eixoX = eixoX+p;
             }   
@@ -147,7 +221,7 @@ public class ListasPanel extends javax.swing.JPanel {
         return elementos;
     }    
     
-    public ListasPanel() {        
+    public ListasPanel() {  
         setVisible(true);
         initComponents();
     }
