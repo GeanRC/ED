@@ -64,14 +64,9 @@ public class ListasPanel extends javax.swing.JPanel {
     
     public void linhaHorizontal(int s){
         Graphics l = getGraphics();
-        l.setColor(Color.BLUE);
-        if(s!=3){
-            //linha horizontal        
-            l.drawLine(eixoX-15, 210, eixoX, 210);        
-        }else{
-            l.drawLine(eixoX-15, 205, eixoX, 205);
-            l.drawLine(eixoX-15, 215, eixoX, 215); 
-        }
+        l.setColor(Color.BLUE);        
+        //linha horizontal        
+        l.drawLine(eixoX-15, 210, eixoX, 210);
         l.setColor(Color.BLACK);
     }
     
@@ -98,8 +93,7 @@ public class ListasPanel extends javax.swing.JPanel {
                 break;
             default:
                 break;
-        }
-//        lista1.insere(posicao, valor);
+        }        
         //informa o numero de elementos na lista
         elementos++;
         if(lista1.vazia()|lista2.vazia()|lista3.vazia()){
@@ -153,8 +147,6 @@ public class ListasPanel extends javax.swing.JPanel {
             default:
                 break;
             }
-//                v = Integer.toString(lista1.elemento(k));
-//                quadrado(v,s); 
                 if(s!=1){
                     linhaVertical(s);
                 }
@@ -183,8 +175,7 @@ public class ListasPanel extends javax.swing.JPanel {
             default:
                 break;
             }
-//            lista1.remove(q);            
-            eixoX = 20;
+                eixoX = 20;
             //reescreve
             for (int k = 1; k<elementos; k++){
                 //se nao e primeira posicao desenha linha horizontal
@@ -207,8 +198,6 @@ public class ListasPanel extends javax.swing.JPanel {
             default:
                 break;
             }
-//                v = Integer.toString(lista1.elemento(k));
-//                quadrado(v,s);
                 linhaVertical(s);
                 eixoX = eixoX+p;
             }   
